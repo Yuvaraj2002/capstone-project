@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: custom-scheduler-pod
+  labels:
+    app: web-service
+    environment: production
+  annotations:
+    description: This is my sample pod
+spec:
+  containers:
+  - name: custom-scheduler
+    image: veenagarag/custom-scheduler-image:latest
+    resources:
+          requests:
+            cpu: "0.7"
+    command: ["python", "custom-scheduler.py"]
+    env:
+    - name: SOME_ENV_VAR
+      value: some_value
+    - name: ANOTHER_ENV_VAR
+      value: another_value

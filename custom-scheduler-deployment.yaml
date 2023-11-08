@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: custom-scheduler-deployment
+spec:
+  replicas: 2  # You can adjust the number of replicas as needed
+  selector:
+    matchLabels:
+      app: custom-scheduler
+  template:
+    metadata:
+      labels:
+        app: custom-scheduler
+    spec:
+      containers:
+      - name: custom-scheduler
+        image: veenagarag/custom-scheduler-image:latest  # Replace with your Docker image name and tag
+        resources:
+          requests:
+            cpu: "0.7"
+        command: ["python", "custom-scheduler.py"]  # Command to run your custom Python script
+        env:
+        # Add any environment variables your Python script may require
+        - name: SOME_ENV_VAR
+          value: some_value
+        - name: ANOTHER_ENV_VAR
+          value: another_value
